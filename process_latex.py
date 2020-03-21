@@ -238,6 +238,11 @@ def convert_comp(comp):
 
 def convert_atom(atom):
     if atom.LETTER():
+        letter = atom.LETTER().getText()
+        # NoTeX
+        if letter == 'i':
+            return sympy.I
+
         subscriptName = ''
         if atom.subexpr():
             subscript = None
@@ -249,8 +254,11 @@ def convert_atom(atom):
         return sympy.Symbol(atom.LETTER().getText() + subscriptName)
     elif atom.SYMBOL():
         s = atom.SYMBOL().getText()[1:]
+        # NoTeX
         if s == "infty":
             return sympy.oo
+        elif s == 'pi':
+            return sympy.pi
         else:
             if atom.subexpr():
                 subscript = None

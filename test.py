@@ -139,7 +139,11 @@ GOOD_PAIRS = [
     ("\\log_{a^2} x", _log(x, _Pow(a, 2))),
     ("[x]", x),
     ("[a + b]", _Add(a, b)),
-    ("\\frac{d}{dx} [ \\tan x ]", Derivative(tan(x), x))
+    ("\\frac{d}{dx} [ \\tan x ]", Derivative(tan(x), x)),
+    # NoTeX
+    ("\\pi", pi),
+    ("\\sin(\\pi)", sin(pi)),
+    ('\\exp(i\\pi)', exp(I*pi)),
 ]
 
 # These bad latex strings should raise an exception when parsed
