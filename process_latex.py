@@ -224,7 +224,7 @@ def convert_exp(exp):
         else:
             return convert_comp(exp.comp_nofunc())
 
-def convert_comp(comp):
+def convert_comp(comp, matrix=True):
     if comp.group():
         return convert_expr(comp.group().expr())
     elif comp.abs_group():
@@ -235,6 +235,8 @@ def convert_comp(comp):
         return convert_frac(comp.frac())
     elif comp.func():
         return convert_func(comp.func())
+    elif matrix and comp.matrix():
+        return convert_matrix(comp.matrix())
 
 def convert_atom(atom):
     if atom.LETTER():
@@ -468,7 +470,6 @@ def handle_sum_or_prod(func, name):
     else: # ^atom
         end = convert_atom(func.supexpr().atom())
         
-
     if name == "summation":
         return sympy.Sum(val, (iter_var, start, end))
     elif name == "product":
@@ -505,6 +506,20 @@ def get_differential_var_str(text):
     if text[0] == "\\":
         text = text[1:]
     return text
+
+def convert_matrix(matrix):
+    text = matrix.getText()
+    print(text)
+    lines = matrix.matrix_line()
+
+    values = []
+    for line in lines:
+        row = []
+        for comp in line.comp_nomatrix():
+            print(comp.getText())
+            row.append(convert_comp(comp, matrix=False))
+        values.append(row)
+    return sympy.Matrix(values)
 
 def test_sympy():
     print(process_sympy("e^{(45 + 2)}"))

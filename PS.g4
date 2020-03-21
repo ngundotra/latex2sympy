@@ -59,6 +59,10 @@ CMD_CDOT:  '\\cdot';
 CMD_DIV:   '\\div';
 CMD_FRAC:  '\\frac';
 
+// NoTeX
+CMD_BEGIN_MATRIX: '\\begin{pmatrix}';
+CMD_END_MATRIX: '\\end{pmatrix}';
+
 CMD_MATHIT: '\\mathit';
 
 UNDERSCORE: '_';
@@ -146,11 +150,20 @@ comp:
     | abs_group
     | func
     | atom
-    | frac;
+    | frac
+ // NoTeX
+    | matrix;
 
 comp_nofunc:
     group
     | abs_group
+    | atom
+    | frac;
+
+comp_nomatrix:
+    group
+    | abs_group
+    | func
     | atom
     | frac;
 
@@ -172,6 +185,17 @@ frac:
     R_BRACE L_BRACE
     lower=expr
     R_BRACE;
+
+// NoTeX
+matrix:
+    CMD_BEGIN_MATRIX
+    // One or more matrix_lines, separated by \\
+    matrix_line ('\\\\' matrix_line)* '\\\\'?
+    CMD_END_MATRIX;
+matrix_line:
+    // One or more atoms, separated by "&"
+    comp_nomatrix ('&' comp_nomatrix)* '\r'? '\n'? '\\\\'?;
+    // row : field (',' field)* '\r'? '\n' 
 
 func_normal:
     FUNC_LOG | FUNC_LN
