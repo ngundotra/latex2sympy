@@ -51,6 +51,9 @@ FUNC_ARTANH: '\\artanh';
 
 FUNC_SQRT: '\\sqrt';
 
+// NoTeX
+FUNC_EXP: '\\exp';
+
 CMD_TIMES: '\\times';
 CMD_CDOT:  '\\cdot';
 CMD_DIV:   '\\div';
@@ -177,7 +180,9 @@ func_normal:
     | FUNC_ARCSIN | FUNC_ARCCOS | FUNC_ARCTAN
     | FUNC_ARCCSC | FUNC_ARCSEC | FUNC_ARCCOT
     | FUNC_SINH | FUNC_COSH | FUNC_TANH
-    | FUNC_ARSINH | FUNC_ARCOSH | FUNC_ARTANH;
+    | FUNC_ARSINH | FUNC_ARCOSH | FUNC_ARTANH
+    // NoTeX
+    | FUNC_EXP;
 
 func:
     func_normal
