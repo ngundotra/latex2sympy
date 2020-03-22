@@ -60,7 +60,6 @@ class MathErrorListener(ErrorListener):
         raise Exception(err)
 
 def convert_relation(rel):
-    # pdb.set_trace()
     if rel.expr():
         return convert_expr(rel.expr())
 
@@ -241,7 +240,6 @@ def convert_comp(comp, matrix=True):
         print("Converting matrix")
         sp_mat = convert_matrix(comp.matrix()) 
         print("Converted matrix: {}".format(sp_mat))
-        pdb.set_trace()
         return sp_mat
 
 def convert_atom(atom):

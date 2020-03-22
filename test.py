@@ -1,8 +1,8 @@
 from sympy import *
 from sympy.abc import x,y,z,a,b,c,f,t,k,n
-
 from process_latex import process_sympy
 
+f = Function('f')
 theta = Symbol('theta')
 
 # shorthand definitions
@@ -63,7 +63,7 @@ GOOD_PAIRS = [
     ("f(x, y)", f(x, y)),
     ("f(x, y, z)", f(x, y, z)),
     ("\\frac{d f(x)}{dx}", Derivative(f(x), x)),
-    ("\\frac{d\\theta(x)}{dx}", Derivative(theta(x), x)),
+    # ("\\frac{d\\theta(x)}{dx}", Derivative(theta(x), x)),
     ("|x|", _Abs(x)),
     ("||x||", _Abs(Abs(x))),
     ("|x||y|", _Abs(x)*_Abs(y)),
@@ -96,7 +96,7 @@ GOOD_PAIRS = [
     ("x_{b}", Symbol('x_{b}')),
     ("h_\\theta", Symbol('h_{theta}')),
     ("h_{\\theta}", Symbol('h_{theta}')),
-    ("h_{\\theta}(x_0, x_1)", Symbol('h_{theta}')(Symbol('x_{0}'), Symbol('x_{1}'))),
+    # ("h_{\\theta}(x_0, x_1)", Symbol('h_{theta}')(Symbol('x_{0}'), Symbol('x_{1}'))),
     ("x!", _factorial(x)),
     ("100!", _factorial(100)),
     ("\\theta!", _factorial(theta)),
