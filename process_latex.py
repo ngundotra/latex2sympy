@@ -27,7 +27,9 @@ def process_sympy(sympy):
 
 
     relation = parser.math().relation()
+    print("Got relation")
     expr = convert_relation(relation)
+    print("Converted")
 
     return expr
 
@@ -136,7 +138,7 @@ def convert_postfix_list(arr, i=0):
         raise Exception("Index out of bounds")
 
     res = convert_postfix(arr[i])
-    if isinstance(res, sympy.Expr):
+    if isinstance(res, sympy.Expr) or isinstance(res, sympy.Matrix):
         if i == len(arr) - 1:
             return res # nothing to multiply by
         else:
@@ -236,7 +238,11 @@ def convert_comp(comp, matrix=True):
     elif comp.func():
         return convert_func(comp.func())
     elif matrix and comp.matrix():
-        return convert_matrix(comp.matrix())
+        print("Converting matrix")
+        sp_mat = convert_matrix(comp.matrix()) 
+        print("Converted matrix: {}".format(sp_mat))
+        pdb.set_trace()
+        return sp_mat
 
 def convert_atom(atom):
     if atom.LETTER():
