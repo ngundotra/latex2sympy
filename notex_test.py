@@ -27,7 +27,15 @@ GOOD_PAIRS = [
     ("\\pi", pi),
     ("\\sin(\\pi)", sin(pi, evaluate=False)),
     ('\\exp(i\\pi)', exp(_Mul(I, pi), evaluate=False)),
-    ('4 \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}', 4*Matrix([[1, 2], [3, 4]]))
+    ('4 \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}', 4*Matrix([[1, 2], [3, 4]])),
+    # Matrix multiplication
+    ('\\begin{pmatrix} 1 \\end{pmatrix} \\begin{pmatrix} 2 \\end{pmatrix}', _Mul(Matrix([1]), Matrix([2]))),
+    (
+        '\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix} \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}',
+        _Mul(Matrix([[1, 0], [0, 1]]), Matrix([[1, 2], [3, 4]]))
+    ),
+    # Function calls on matrices currently don't work
+    ('\\sin(\\begin{pmatrix} -1 & i & pi \\end{pmatrix})', sin(Matrix([-1, I, pi]))),
 ]
 
 # These bad latex strings should raise an exception when parsed
